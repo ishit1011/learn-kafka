@@ -18,3 +18,14 @@ producer=KafkaProducer(
     value_serializer=json_visualizer
 )
 
+producer.send(topic=topic_name, value='******************************************', partition=1)
+
+for e in range(10):
+    # This is a dictionary : key-value
+    myMsg = {'I am a doctor and Eat an Apple daily : ':e}
+    storage = producer.send(topic=topic_name, value=myMsg, partition=1)
+
+    meta_data = storage.get(timeout=10)
+    print('This is partition : ',meta_data.partition)
+    sleep(1)    
+
