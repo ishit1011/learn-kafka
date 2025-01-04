@@ -9,10 +9,13 @@ from kafka import KafkaProducer
 from json import dumps
 from time import sleep
 
+def json_serializer(myData):
+    return dumps(myData).encode('utf-8')
+
 topic_name = 'topic-hello-world'
 producer = KafkaProducer(
     bootstrap_servers='',
-    value_serializer=lambda v: dumps(v).encode('utf-8')
+    value_serializer=json_serializer
 )
 
 for e in range(100):
@@ -22,4 +25,4 @@ for e in range(100):
         topic=topic_name,
         value=message
     )
-    sleep(5)
+    sleep(0.5)
