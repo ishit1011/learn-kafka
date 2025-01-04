@@ -16,7 +16,10 @@ producer= KafkaProducer(
     bootstrap_servers='',
     value_serializer=json_serializer
 )
-
+producer.send(
+    topic=topic_name,
+    value='------------------------'
+)
 # Storing in random partition in multiple partitions in a topic
 for e in range(10):
     data={'This message :':e}
@@ -28,5 +31,5 @@ for e in range(10):
     # Get partition and offset from RecordMetadata
     record_metadata = storage.get(timeout=10)
     print("Message stored in partition: ",record_metadata.partition)
-    
+
     sleep(1)
